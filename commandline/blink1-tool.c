@@ -37,7 +37,7 @@ uint8_t currentR = 255;
 uint8_t currentG = 255;
 uint8_t currentB = 255;
 
-hid_device **dev;
+hid_device *dev[blink1_max_devices];
 //const wchar_t* dev_serial;
 char  deviceIds[blink1_max_devices];
 
@@ -311,7 +311,6 @@ int main(int argc, char** argv)
       exit(1);
     }
     /* initialize all devices to NULL */
-    dev = (hid_device **)malloc (blink1_max_devices * sizeof (hid_device *));
     for (int i = 0; i < blink1_max_devices; i++)
       {
         dev[i] = NULL;
@@ -603,14 +602,11 @@ int main(int argc, char** argv)
         }
     }
 
-    /* segfaults if I try to close?
     for( int i=0; i < countDevices; i++ ) {
       if (dev[i] != NULL) {
         blink1_close (dev[i]);
       }
     }
-    */
-    free (dev);
 
     return 0;
 }
